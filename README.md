@@ -11,14 +11,14 @@ OSQuery exposes an operating system as a high-performance relational database. T
 With osquery, SQL tables represent abstract concepts such as running processes, loaded kernel modules, open network connections, browser plugins, hardware events or file hashes..
    an 
   <br>
-  <a href="https://www.guardicore.com/osquery"><strong>Explore OSQuery docs »</strong></a>
+  <a href="https://www.guardicore.com/osquery">OSQuerie</a>
   <br>
   <br>
   <a href="https://github.com/elibeker/osquery/issues/new?template=bug_report.md">Report bug</a>
   ·
   <a href="https://github.com/elibeker/osquery/issues/new?template=feature_request.md">Request feature</a>
   ·
-  <a href="https://themes.getbootstrap.com/">Themes</a>
+  <a href="https://www.guardicore.com/osquery"><strong>Explore OSQuery docs »</strong></a>
   ·
   <a href="https://blog.guardicore.com/">Blog</a>
 </p>
