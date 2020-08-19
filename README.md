@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.guardicore.com/">
-    <img src="https://www.guardicore.com/wp-content/uploads/2019/02/guardicore-press-releases-logo-banner2-845x200-1.jpg" alt="Guardicore logo" width="400" height="165">
+    <img src="https://www.guardicore.com/wp-content/uploads/2019/02/guardicore-press-releases-logo-banner2-845x200-1.jpg" alt="Guardicore logo" width="600" height="165">
   </a>
 </p>
 
