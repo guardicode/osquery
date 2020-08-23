@@ -52,3 +52,20 @@
 | `Hash of files in many folders` | SELECT * FROM file WHERE path LIKE "C:\Users\%\Desktop\%"; |
 | `Search for a file` | SELECT * FROM hash WHERE path LIKE 'C:\%\%\%\password.txt'; |
 
+
+```sql
+SELECT
+  CASE
+   WHEN EXISTS (
+   SELECT 1 FROM listening_ports as l
+   JOIN processes p ON p.pid=l.pid
+     WHERE
+      l.port IN 
+       ('1234') AND
+      p.name IN 
+       ('nginx','ifconfig')
+   )
+THEN 'POSSIBLE_infected'
+ELSE 'SYSTEM_IS_CLEAN'
+END AS FRITZ_FROG_INFECTED;
+```
