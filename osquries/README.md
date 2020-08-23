@@ -7,7 +7,16 @@
 <p align="left">
 </p>
 
-| Command | Description |
+| Description | Query |
 | --- | --- |
-| `git status` | List all *new or modified* files |
-| `git diff` | Show file differences that **haven't been** staged |
+| `Osquery version` | *SELECT version FROM osquery_info;* |
+| `List of tables` | *.tables* |
+| `Table description` | *.schema <table_name>* |
+
+
+
+
+| Description | Query |
+| --- | --- |
+| `Osquery version` | List all *new or modified* files |
+| `List of tables` | Show file differences that **haven't been** staged |
