@@ -40,32 +40,10 @@
 | `look for specific program` | SELECT * FROM programs WHERE name LIKE '%wireshark%'; |
 | `Get hash of running processes` | <p>SELECT DISTINCT h.md5, p.name, p.path, u.username<br>FROM processes AS p<br>INNER JOIN hash AS h ON h.path = p.path<br>INNER JOIN users AS u ON u.uid = p.uid<br>ORDER BY start_time DESC<br>LIMIT 20;</p> |
 | <p>`Find parent processes`<br>`(replace pid with one you look for)`</p> | <p>WITH RECURSIVE<br>rc(pid, parent, name) AS (<br>SELECT pid, parent, name FROM processes WHERE pid = 14380<br>UNION ALL<br>SELECT p.pid, p.parent, p.name FROM processes AS p, rc<br>WHERE p.pid = rc.parent<br>AND p.pid != 0)<br>SELECT pid, parent, name FROM rc LIMIT 20;<p> | 
-| `Find processes run by powershell  
-(ignore conhost from legit path)` | *select p.pid,p.name,p.path,p.parent,parents.name as parent_name from processes as p
-inner join processes as parents on p.parent = parents.pid
-where parents.name = 'powershell.exe' AND p.path != 'C:\Windows\System32\conhost.exe';* |
-| `Look for svchost instances that are not running legitimately 
-(not spawned from services, not in their right path or have no flag arguments)` | *select p.pid, p.path, p.parent, p.cmdline, par.name as parent_name, par.cmdline as parent_cmdline from processes as p
-inner join processes as par on p.parent=par.pid
-where p.name='svchost.exe' and (par.name!='services.exe' or p.path not like '%windows\system32\svchost.exe' or p.cmdline not like '%-%');* |
-| `FritzFrog detector
-Checks for listening port 1234 and running service name ifconfig or nginx` | *SELECT 
-   CASE 
-	 WHEN EXISTS
-	 (SELECT 1
-	 FROM listening_ports as l
-	 JOIN processes p ON p.pid=l.pid
-	 WHERE 
-	  l.port IN (
-        '1234') 
-	 AND 
-	  p.name IN (
-        'nginx',
-        'ifconfig')
-	 )
-THEN 'POSSIBLE_infected'
-ELSE 'SYSTEM_IS_CLEAN'
-END AS FRITZ_FROG_INFECTED;* |
+| <p>`Find processes run by powershell`<br>`(ignore conhost from legit path)`</p> | <p>select p.pid,p.name,p.path,p.parent,parents.name as parent_name from processes as p
+inner join processes as parents on p.parent = parents.pid<br>where parents.name = 'powershell.exe' AND p.path != 'C:\Windows\System32\conhost.exe';</p> |
+| <p>`Look for svchost instances that are not running legitimately`<br>`(not spawned from services, not in their right path or have no flag arguments)`</p> | <p>select p.pid, p.path, p.parent, p.cmdline, par.name as parent_name, par.cmdline as parent_cmdline from processes as p<br>inner join processes as par on p.parent=par.pid<br>where p.name='svchost.exe'<br> and<br> (par.name!='services.exe' or p.path not like '%windows\system32\svchost.exe' or p.cmdline not like '%-%');</p> |
+| <p>`FritzFrog detector`<br>`Checks for listening port 1234 and running service name ifconfig or nginx`</p> | <p>SELECT <br>CASE <br>WHEN EXISTS<br>(SELECT 1<br>FROM listening_ports as l<br>JOIN processes p ON p.pid=l.pid<br>WHERE <br>l.port IN (<br>'1234') <br>AND <br>p.name IN (<br>'nginx',<br>'ifconfig')<br>)<br>THEN 'POSSIBLE_infected'<br>ELSE 'SYSTEM_IS_CLEAN'<br>END AS FRITZ_FROG_INFECTED;</p> |
 
 
 
