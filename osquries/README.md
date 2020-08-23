@@ -69,3 +69,58 @@ THEN 'POSSIBLE_infected'
 ELSE 'SYSTEM_IS_CLEAN'
 END AS FRITZ_FROG_INFECTED;
 ```
+<table>
+<tr>
+<td> Description </td> <td> OSQuery </td>
+</tr>
+<tr>
+<td> FritzFrog detector<br>
+     ( Checks for listening port 1234 and<br> 
+     running service name ifconfig or nginx )</td>
+<td>
+
+```sql
+SELECT
+  CASE
+   WHEN EXISTS (
+   SELECT 1 FROM listening_ports as l
+   JOIN processes p ON p.pid=l.pid
+     WHERE
+      l.port IN 
+       ('1234') AND
+      p.name IN 
+       ('nginx','ifconfig')
+   )
+THEN 'POSSIBLE_infected'
+ELSE 'SYSTEM_IS_CLEAN'
+END AS FRITZ_FROG_INFECTED;
+```
+
+</td>
+</tr>
+<tr>
+<td> FritzFrog detector<br>
+     ( Checks for listening port 1234 and<br> 
+     running service name ifconfig or nginx )</td>
+<td>
+
+```sql
+SELECT
+  CASE
+   WHEN EXISTS (
+   SELECT 1 FROM listening_ports as l
+   JOIN processes p ON p.pid=l.pid
+     WHERE
+      l.port IN 
+       ('1234') AND
+      p.name IN 
+       ('nginx','ifconfig')
+   )
+THEN 'POSSIBLE_infected'
+ELSE 'SYSTEM_IS_CLEAN'
+END AS FRITZ_FROG_INFECTED;
+```
+
+</td>
+</tr>
+</table>
