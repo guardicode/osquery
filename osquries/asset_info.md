@@ -67,7 +67,7 @@ SELECT u.username,
 <td>
 
 ```sql
-SELECT data,name,type FROM registry WHERE key LIKE 'HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS';
+SELECT name,data,type FROM registry WHERE key LIKE 'HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS';
 ```
 
 </td>
@@ -120,4 +120,144 @@ SELECT DISTINCT
 
 </td>
 </tr>
+<tr>
+<td> Look for specific process<br>
+     (example dns port 53)</td>
+<td>
+
+```sql
+SELECT DISTINCT(processes.name), process_open_sockets.local_port 
+  FROM processes 
+  JOIN process_open_sockets 
+ USING (pid) 
+ WHERE local_port=53 AND processes.name 
+  LIKE 'dns%';
+```
+
+</td>
+</tr>
+<tr>
+<td> Open sockets</td>
+<td>
+
+```sql
+SELECT remote_address,remote_port,local_address,local_port,family,protocol,state
+  FROM process_open_sockets
+ WHERE remote_address NOT LIKE '127.0.0.1'
+   AND remote_address NOT LIKE '0.0.0.0'
+   AND remote_address NOT LIKE '::'
+   AND remote_address NOT LIKE '0';
+```
+
+</td>
+</tr>
+<tr>
+<td> Open sockets<br> 
+     + username<br> 
+     + process name<br> 
+     + process path</td>
+<td>
+
+```sql
+SELECT u.username,
+       p.pid,
+       p.name,
+       pos.local_address,
+       pos.local_port,
+       p.path,
+       p.cmdline,
+       pos.remote_address,
+       pos.remote_port
+  FROM processes as p
+  JOIN users as u
+    on u.uid=p.uid
+  JOIN process_open_sockets as pos
+    on pos.pid=p.pid
+ WHERE pos.remote_port !='0' AND pos.remote_address != '127.0.0.1'
+ limit 1000;
+```
+
+</td>
+</tr>
+<tr>
+<td> Docker listening sockets</td>
+<td>
+
+```sql
+SELECT l.port, p.pid, p.path, p.cmdline
+  FROM listening_ports AS l
+  LEFT JOIN processes p 
+    ON p.pid=l.pid
+ WHERE p.path LIKE "%docker%" AND port!=0;
+```
+
+</td>
+</tr>
+<tr>
+<td> Installed programs - Windows</td>
+<td>
+
+```sql
+select name,install_location FROM programs;
+```
+
+</td>
+</tr>
+<tr>
+<td> Installed programs - Debian/Ubuntu</td>
+<td>
+
+```sql
+select * FROM deb_packages;
+```
+
+</td>
+</tr>
+<tr>
+<td> Installed programs - RHEL/CentOs</td>
+<td>
+
+```sql
+SELECT * FROM rpm_packages;
+```
+
+</td>
+</tr>
+<tr>
+<td> List local users</td>
+<td>
+
+```sql
+SELECT g.groupname,u.username 
+  FROM users as u
+  JOIN user_groups as ug
+    on u.uid=ug.uid
+  JOIN groups as g
+    on g.gid=ug.gid
+ limit 1000;
+```
+
+</td>
+</tr>
+<tr>
+<td> OS version</td>
+<td>
+
+```sql
+SELECT name, version, build, platform FROM os_version;
+```
+
+</td>
+</tr>
+<tr>
+<td> OS version</td>
+<td>
+
+```sql
+SELECT name, version, build, platform FROM os_version;
+```
+
+</td>
+</tr>
+
 </table>
