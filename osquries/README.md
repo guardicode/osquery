@@ -5,7 +5,14 @@
 </p>
 <h3 align="left">Basic Information</h3>
 <p align="left">
-</p>
+
+| Description | Query |
+| --- | --- |
+| `Osquery version` | *SELECT version FROM osquery_info;* |
+| `List of tables` | *.tables* |
+| `Table description` | *.schema <table_name>* |
+<br>
+<h3 align="left">Asset / IR information</h3>
 
 | Description | Query |
 | --- | --- |
@@ -13,10 +20,8 @@
 | `List of tables` | *.tables* |
 | `Table description` | *.schema <table_name>* |
 
-
-
-
 | Description | Query |
 | --- | --- |
 | `Osquery version` | List all *new or modified* files |
 | `List of tables` | Show file differences that **haven't been** staged |
+</p>
