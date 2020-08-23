@@ -27,12 +27,14 @@
 | `List Listening Processes` | *SELECT DISTINCT process.name, listening.port, listening.address, process.pid FROM processes AS process JOIN listening_ports AS listening ON process.pid = listening.pid WHERE address != '127.0.0.1';* |
 | `Look for specific process` | *SELECT DISTINCT(processes.name), process_open_sockets.local_port FROM processes JOIN process_open_sockets USING (pid) WHERE local_port=53 AND processes.name LIKE 'dns%';* |
 | `exec removed FROM disk` | *SELECT name, path, pid FROM processes WHERE on_disk = 0;* |
-| `Open sockets` | *SELECT remote_address,remote_port,local_address,local_port,family,protocol,state* |
-| | *FROM process_open_sockets* |
-| | *WHERE remote_address NOT LIKE '127.0.0.1'* |
-| | *AND remote_address NOT LIKE '0.0.0.0'* |
-| | *AND remote_address NOT LIKE '::'* |
-| | *AND remote_address NOT LIKE '0';* |
+| `Open sockets` | <p>SELECT remote_address,remote_port,local_address,local_port,family,protocol,state<br>
+    FROM process_open_sockets* |
+      WHERE remote_address NOT LIKE '127.0.0.1'<br>
+       AND remote_address NOT LIKE '0.0.0.0'<br>
+       AND remote_address NOT LIKE '::'<br>
+       AND remote_address NOT LIKE '0'</p> |
+| `value` | <ul><li>value 1</li><li>value 2</li></ul> |
+| `value` | <ul><li>value 1</li><li>value 2</li></ul> |
 | `Open sockets + username + process name + process path` | SELECT * u.username,
        p.pid,
        p.name,
