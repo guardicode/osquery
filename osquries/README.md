@@ -1,0 +1,4 @@
+Basic information
+|Osquery version|SELECT version FROM osquery_info;|
+|List of tables|.tables|
+|Table description|.schema <table_name>|
