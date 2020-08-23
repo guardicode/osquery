@@ -28,46 +28,18 @@
 | `Look for specific process` | *SELECT DISTINCT(processes.name), process_open_sockets.local_port FROM processes JOIN process_open_sockets USING (pid) WHERE local_port=53 AND processes.name LIKE 'dns%';* |
 | `exec removed FROM disk` | *SELECT name, path, pid FROM processes WHERE on_disk = 0;* |
 | `Open sockets` | <p>SELECT remote_address,remote_port,local_address,local_port,family,protocol,state<br>FROM process_open_sockets<br>WHERE remote_address NOT LIKE '127.0.0.1'<br>AND remote_address NOT LIKE '0.0.0.0'<br>AND remote_address NOT LIKE '::'<br>AND remote_address NOT LIKE '0'</p> |
-| `Open sockets + username + process name + process path` | <p>SELECT * u.username,p.pid,p.name,pos.local_address,<br>pos.local_port,p.path,p.cmdline,pos.remote_address,pos.remote_port<br>FROM processes as p<br>JOIN users as u<br>on u.uid=p.uid<br>JOIN process_open_sockets as pos<br>on pos.pid=p.pid<br>WHERE pos.remote_port !='0' AND pos.remote_address != '127.0.0.1'<br>limit 1000;</p> |
-| `Docker listening sockets` | * select l.port, p.pid, p.path, p.cmdline
-  FROM listening_ports AS l
-       LEFT JOIN processes p ON p.pid=l.pid
-WHERE p.path LIKE "%docker%"
-  AND port!=0;* |
-| `Installed programs - Windows` | *select name,install_location FROM programs;* |
-| `Installed programs - Debian/Ubuntu` | *select * FROM deb_packages;* |
-| `Installed programs - RHEL/CentOs` | *SELECT * FROM rpm_packages;* |
-| `List local users` | *SELECT g.groupname,u.username FROM users as u
-JOIN user_groups as ug
-    on u.uid=ug.uid
-JOIN groups as g
-    on g.gid=ug.gid
-limit 1000;* |
-| `List local user in priv groups` | *SELECT u.username,g.groupname FROM users as u
-JOIN user_groups as ug
-    on u.uid=ug.uid
-JOIN groups as g
-    on g.gid=ug.gid
-WHERE g.groupname = 'Administrators' OR g.groupname = 'sudo' OR g.groupname = 'root';* |
-| `List Users/Processes` | *SELECT p.pid, p.name, u.username FROM processes AS p
-JOIN users AS u
-    ON p.uid = u.uid;* |
-| `look for specific program` | *SELECT * FROM programs WHERE name LIKE '%wireshark%';* |
-| `Get hash of running processes` | *SELECT DISTINCT h.md5, p.name, p.path, u.username
-FROM processes AS p
-INNER JOIN hash AS h ON h.path = p.path
-INNER JOIN users AS u ON u.uid = p.uid
-ORDER BY start_time DESC
-LIMIT 20;* |
-| `Find parent processes 
-(replace pid with one you look for)` | *WITH RECURSIVE
-rc(pid, parent, name) AS (
- SELECT pid, parent, name FROM processes WHERE pid = 14380 
- UNION ALL
- SELECT p.pid, p.parent, p.name FROM processes AS p, rc
- WHERE p.pid = rc.parent
- AND p.pid != 0)
-SELECT pid, parent, name FROM rc LIMIT 20;* | 
+| `Open sockets + username + process name + process path` | <p>SELECT * u.username,p.pid,p.name,pos.local_address,pos.local_port,p.path,p.cmdline,pos.remote_address,pos.remote_port<br>FROM processes as p<br>JOIN users as u<br>on u.uid=p.uid<br>JOIN process_open_sockets as pos<br>on pos.pid=p.pid<br>WHERE pos.remote_port !='0' AND pos.remote_address != '127.0.0.1'<br>limit 1000;</p> |
+| `Docker listening sockets` | <p>SELECT l.port, p.pid, p.path, p.cmdline<br>FROM listening_ports AS l<br>LEFT JOIN processes p ON p.pid=l.pid<br>WHERE p.path LIKE "%docker%"
+  AND port!=0;</p> |
+| `Installed programs - Windows` | select name,install_location FROM programs; |
+| `Installed programs - Debian/Ubuntu` | select * FROM deb_packages; |
+| `Installed programs - RHEL/CentOs` | SELECT * FROM rpm_packages; |
+| `List local users` | <p>SELECT g.groupname,u.username FROM users as u<br>JOIN user_groups as ug<br>on u.uid=ug.uid<br>JOIN groups as g<br>on g.gid=ug.gid<br>limit 1000;</p> |
+| `List local user in priv groups` | <p>SELECT u.username,g.groupname FROM users as u<br>JOIN user_groups as ug<br>on u.uid=ug.uid<br>JOIN groups as g<br>on g.gid=ug.gid<br>WHERE g.groupname = 'Administrators' OR g.groupname = 'sudo' OR g.groupname = 'root';</p> |
+| `List Users/Processes` | <p>SELECT p.pid, p.name, u.username FROM processes AS p<br>JOIN users AS u<br>ON p.uid = u.uid;</p> |
+| `look for specific program` | SELECT * FROM programs WHERE name LIKE '%wireshark%'; |
+| `Get hash of running processes` | <p>SELECT DISTINCT h.md5, p.name, p.path, u.username<br>FROM processes AS p<br>INNER JOIN hash AS h ON h.path = p.path<br>INNER JOIN users AS u ON u.uid = p.uid<br>ORDER BY start_time DESC<br>LIMIT 20;</p> |
+| <p>`Find parent processes<br>(replace pid with one you look for)`</p> | <p>WITH RECURSIVE<br>rc(pid, parent, name) AS (<br>SELECT pid, parent, name FROM processes WHERE pid = 14380<br>UNION ALL<br>SELECT p.pid, p.parent, p.name FROM processes AS p, rc<br>WHERE p.pid = rc.parent<br>AND p.pid != 0)<br>SELECT pid, parent, name FROM rc LIMIT 20;<p> | 
 | `Find processes run by powershell  
 (ignore conhost from legit path)` | *select p.pid,p.name,p.path,p.parent,parents.name as parent_name from processes as p
 inner join processes as parents on p.parent = parents.pid
