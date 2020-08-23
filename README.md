@@ -22,4 +22,3 @@ With osquery, SQL tables represent abstract concepts such as running processes, 
   <a href="https://blog.guardicore.com/">Blog</a>
 </p>
 
-
