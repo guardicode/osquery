@@ -57,7 +57,8 @@ SELECT u.username,
        ce.path 
   FROM chrome_extensions ce 
   LEFT JOIN users u 
-    ON ce.uid = u.uid;```
+    ON ce.uid = u.uid;
+ ```
 
 </td>
 </tr>
