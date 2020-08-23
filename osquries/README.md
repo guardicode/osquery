@@ -39,7 +39,7 @@
 | `List Users/Processes` | <p>SELECT p.pid, p.name, u.username FROM processes AS p<br>JOIN users AS u<br>ON p.uid = u.uid;</p> |
 | `look for specific program` | SELECT * FROM programs WHERE name LIKE '%wireshark%'; |
 | `Get hash of running processes` | <p>SELECT DISTINCT h.md5, p.name, p.path, u.username<br>FROM processes AS p<br>INNER JOIN hash AS h ON h.path = p.path<br>INNER JOIN users AS u ON u.uid = p.uid<br>ORDER BY start_time DESC<br>LIMIT 20;</p> |
-| <p>`Find parent processes<br>(replace pid with one you look for)`</p> | <p>WITH RECURSIVE<br>rc(pid, parent, name) AS (<br>SELECT pid, parent, name FROM processes WHERE pid = 14380<br>UNION ALL<br>SELECT p.pid, p.parent, p.name FROM processes AS p, rc<br>WHERE p.pid = rc.parent<br>AND p.pid != 0)<br>SELECT pid, parent, name FROM rc LIMIT 20;<p> | 
+| <p>`Find parent processes`<br>`(replace pid with one you look for)`</p> | <p>WITH RECURSIVE<br>rc(pid, parent, name) AS (<br>SELECT pid, parent, name FROM processes WHERE pid = 14380<br>UNION ALL<br>SELECT p.pid, p.parent, p.name FROM processes AS p, rc<br>WHERE p.pid = rc.parent<br>AND p.pid != 0)<br>SELECT pid, parent, name FROM rc LIMIT 20;<p> | 
 | `Find processes run by powershell  
 (ignore conhost from legit path)` | *select p.pid,p.name,p.path,p.parent,parents.name as parent_name from processes as p
 inner join processes as parents on p.parent = parents.pid
