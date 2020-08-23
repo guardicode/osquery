@@ -43,14 +43,12 @@
 | <p>`Look for svchost instances that are not running legitimately`<br>`(not spawned from services, not in their right path or have no flag arguments)`</p> | <p>select p.pid, p.path, p.parent, p.cmdline, par.name as parent_name, par.cmdline as parent_cmdline from processes as p<br>inner join processes as par on p.parent=par.pid<br>where p.name='svchost.exe'<br> and<br> (par.name!='services.exe' or p.path not like '%windows\system32\svchost.exe' or p.cmdline not like '%-%');</p> |
 | <p>`FritzFrog detector`<br>`Checks for listening port 1234 and running service name ifconfig or nginx`</p> | <p>SELECT <br>CASE <br>WHEN EXISTS<br>(SELECT 1<br>FROM listening_ports as l<br>JOIN processes p ON p.pid=l.pid<br>WHERE <br>l.port IN ('1234') AND <br>p.name IN ('nginx','ifconfig'))<br>THEN 'POSSIBLE_infected'<br>ELSE 'SYSTEM_IS_CLEAN'<br>END AS FRITZ_FROG_INFECTED;</p> |
 
-
-
-
-
-
+<h3 align="left">FIM</h3>
 
 | Description | Query |
 | --- | --- |
-| `Osquery version` | List all *new or modified* files |
-| `List of tables` | Show file differences that **haven't been** staged |
-</p>
+| `Hash of a file` | SELECT * FROM hash WHERE path = 'C:\Users\Administrator\Desktop\password.txt'; |
+| `Hash of files in folder` | SELECT * FROM hash WHERE path LIKE 'C:\Users\Administrator\Desktop\%'; |
+| `Hash of files in many folders` | SELECT * FROM file WHERE path LIKE "C:\Users\%\Desktop\%"; |
+| `Search for a file` | SELECT * FROM hash WHERE path LIKE 'C:\%\%\%\password.txt'; |
+
