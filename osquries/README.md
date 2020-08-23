@@ -43,7 +43,7 @@
 | <p>`Find processes run by powershell`<br>`(ignore conhost from legit path)`</p> | <p>select p.pid,p.name,p.path,p.parent,parents.name as parent_name from processes as p
 inner join processes as parents on p.parent = parents.pid<br>where parents.name = 'powershell.exe' AND p.path != 'C:\Windows\System32\conhost.exe';</p> |
 | <p>`Look for svchost instances that are not running legitimately`<br>`(not spawned from services, not in their right path or have no flag arguments)`</p> | <p>select p.pid, p.path, p.parent, p.cmdline, par.name as parent_name, par.cmdline as parent_cmdline from processes as p<br>inner join processes as par on p.parent=par.pid<br>where p.name='svchost.exe'<br> and<br> (par.name!='services.exe' or p.path not like '%windows\system32\svchost.exe' or p.cmdline not like '%-%');</p> |
-| <p>`FritzFrog detector`<br>`Checks for listening port 1234 and running service name ifconfig or nginx`</p> | <p>SELECT <br>CASE <br>WHEN EXISTS<br>(SELECT 1<br>FROM listening_ports as l<br>JOIN processes p ON p.pid=l.pid<br>WHERE <br>l.port IN (<br>'1234') <br>AND <br>p.name IN (<br>'nginx',<br>'ifconfig')<br>)<br>THEN 'POSSIBLE_infected'<br>ELSE 'SYSTEM_IS_CLEAN'<br>END AS FRITZ_FROG_INFECTED;</p> |
+| <p>`FritzFrog detector`<br>`Checks for listening port 1234 and running service name ifconfig or nginx`</p> | <p>SELECT <br>CASE <br>WHEN EXISTS<br>(SELECT 1<br>FROM listening_ports as l<br>JOIN processes p ON p.pid=l.pid<br>WHERE <br>l.port IN ('1234') AND <br>p.name IN ('nginx','ifconfig'))<br>THEN 'POSSIBLE_infected'<br>ELSE 'SYSTEM_IS_CLEAN'<br>END AS FRITZ_FROG_INFECTED;</p> |
 
 
 
