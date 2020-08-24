@@ -35,7 +35,7 @@ SELECT * FROM hash WHERE path LIKE 'C:\Users\Administrator\Desktop\%';
 <td>
 
 ```sql
-SELECT * FROM file WHERE path LIKE "C:\Users\%\Desktop\%";
+SELECT * FROM file WHERE path LIKE 'C:\Users\%\Desktop\%';
 ```
 
 </td>
