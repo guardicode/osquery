@@ -11,16 +11,14 @@ OSQuery exposes an operating system as a high-performance relational database. T
 With osquery, SQL tables represent abstract concepts such as running processes, loaded kernel modules, open network connections, browser plugins, hardware events or file hashes.
   <br>
   <br>
-  <a href="https://github.com/elibeker/osquery/tree/master/osqueries"><strong>OSQueries »</strong></a>
+  <a href="https://github.com/elibeker/osquery/tree/master/osqeuries"><strong>OSQueries »</strong></a>
   .
   <a href="https://github.com/elibeker/osquery/issues/new?template=bug_report.md">Report bug</a>
   ·
   <a href="https://github.com/elibeker/osquery/issues/new?template=feature_request.md">Request feature</a>
   ·
   <a href="https://github.com/elibeker/osquery/tree/master/docs">Explore OSQuery docs</a>
-  ·
-  <a href="https://blog.guardicore.com/">Blog</a>
-</p>
+  </p>
 ## What's included
 
 Within this repo you'll find the following directories and files, logically grouping common osquery tasks with other usefull documentation and providing both compiled and minified variations of osquery selects. You'll see something like this:
