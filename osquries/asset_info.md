@@ -197,7 +197,7 @@ SELECT l.port, p.pid, p.path, p.cmdline
 <td>
 
 ```sql
-select name,install_location FROM programs;
+SELECT name,install_location FROM programs;
 ```
 
 </td>
@@ -207,7 +207,7 @@ select name,install_location FROM programs;
 <td>
 
 ```sql
-select * FROM deb_packages;
+SELECT * FROM deb_packages;
 ```
 
 </td>
