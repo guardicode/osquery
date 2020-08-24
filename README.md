@@ -11,7 +11,7 @@ OSQuery exposes an operating system as a high-performance relational database. T
 With osquery, SQL tables represent abstract concepts such as running processes, loaded kernel modules, open network connections, browser plugins, hardware events or file hashes.
   <br>
   <br>
-  <a href="https://github.com/elibeker/osquery/tree/master/osquries"><strong>OSQueries »</strong></a>
+  <a href="https://github.com/elibeker/osquery/tree/master/osqueries"><strong>OSQueries »</strong></a>
   .
   <a href="https://github.com/elibeker/osquery/issues/new?template=bug_report.md">Report bug</a>
   ·
