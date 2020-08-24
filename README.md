@@ -21,4 +21,23 @@ With osquery, SQL tables represent abstract concepts such as running processes, 
   ·
   <a href="https://blog.guardicore.com/">Blog</a>
 </p>
+## What's included
+
+Within the download you'll find the following directories and files, logically grouping common osquery tasks and providing both compiled and minified variations of osquery selects. You'll see something like this:
+
+```text
+osquery/
+└── main/
+    ├── osqueries/
+    │   ├── asset_info.md
+    │   ├── fim.md
+    │   ├── threat_hunting.md
+    │   └── vulnerability.md
+    │── docs/
+    │   └── tbd
+    └── issues/
+        ├── bug_report.md
+        └── feature_request.md
+```
+
 
