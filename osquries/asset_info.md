@@ -128,8 +128,7 @@ SELECT DISTINCT
 ```sql
 SELECT DISTINCT(processes.name), process_open_sockets.local_port 
   FROM processes 
-  JOIN process_open_sockets 
- USING (pid) 
+  JOIN process_open_sockets USING (pid) 
  WHERE local_port=53 AND processes.name 
   LIKE 'dns%';
 ```
@@ -240,21 +239,30 @@ SELECT g.groupname,u.username
 </td>
 </tr>
 <tr>
-<td> OS version</td>
+<td> List local user in priv groups</td>
 <td>
 
 ```sql
-SELECT name, version, build, platform FROM os_version;
+SELECT u.username,g.groupname 
+  FROM users as u
+  JOIN user_groups as ug
+    on u.uid=ug.uid
+  JOIN groups as g
+    on g.gid=ug.gid
+ WHERE g.groupname = 'Administrators' OR g.groupname = 'sudo' OR g.groupname = 'root';
 ```
 
 </td>
 </tr>
 <tr>
-<td> OS version</td>
+<td> List Users/Processes</td>
 <td>
 
 ```sql
-SELECT name, version, build, platform FROM os_version;
+SELECT p.pid, p.name, u.username 
+  FROM processes AS p
+  JOIN users AS u
+    on p.uid = u.uid;
 ```
 
 </td>
