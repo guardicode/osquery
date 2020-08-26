@@ -4,7 +4,7 @@
   </a>
 </p>
 <h3 align="left">OSQuery Useful Documentation</h3>
-<p align="left">
-
+<p align="left"><h5>
 <a href="https://osquery.io/" target="_blank">OSQuery Official Site</a><br>
 <a href="https://resources.infosecinstitute.com/category/enterprise/threat-hunting/threat-hunting-solutions/how-to-build-a-threat-hunting-tool-in-10-steps/threat-hunting-with-osquery/" target="_blank">Threat Hunting With Osquery</a> - Infosec Institute
+</p>
