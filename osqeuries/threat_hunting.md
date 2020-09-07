@@ -110,6 +110,32 @@ SELECT p.pid,
 </td>
 </tr>
 <tr>
+<td> Lists all unsigned <br>
+     (or signed and not trusted) <br>
+     autoruns on windows OS
+</td>
+<td>
+
+```sql
+SELECT a.path, 
+       a.name, 
+       a.source, 
+       c.issuer_name, 
+       c.subject_name, 
+       c.result
+  FROM autoexec
+    AS a
+ INNER 
+  JOIN authenticode 
+    AS c 
+    ON a.path=c.path AND a.source != 'scheduled_tasks'
+ WHERE result! = 'trusted' 
+   AND NOT (a.path LIKE '%windows\system32%' AND a.source = 'services');
+```
+
+</td>
+</tr>
+<tr>
 <td> FritzFrog detector<br>
      Checks for listening port 1234 <br>
      and running service name ifconfig or nginx</td>
