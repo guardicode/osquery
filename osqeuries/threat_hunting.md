@@ -129,7 +129,7 @@ SELECT a.path,
   JOIN authenticode 
     AS c 
     ON a.path=c.path AND a.source != 'scheduled_tasks'
- WHERE result! = 'trusted' 
+ WHERE result != 'trusted' 
    AND NOT (a.path LIKE '%windows\system32%' AND a.source = 'services');
 ```
 
