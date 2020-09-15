@@ -30,7 +30,7 @@ osquery/
     │   ├── asset_info.md
     │   ├── fim.md
     │   ├── threat_hunting.md
-    │   └── vulnerability.md
+    │   └── compliance.md
     │── docs/
     │   └── tbd
     └── issues/
