@@ -21,7 +21,7 @@ With osquery, SQL tables represent abstract concepts such as running processes, 
   </p>
 ## What's included
 
-Within this repo you'll find the following directories and files, logically grouping common osquery tasks with other usefull documentation and providing both compiled and minified variations of osquery selects. You'll see something like this:
+Within this repo you'll find the following directories and files, logically grouping common osquery tasks with other useful documentation and providing both compiled and minified variations of osquery selects. You'll see something like this:
 
 ```text
 osquery/
@@ -31,8 +31,7 @@ osquery/
     │   ├── fim.md
     │   ├── threat_hunting.md
     │   └── compliance.md
-    │── docs/
-    │   └── tbd
+    │── docs 
     └── issues/
         ├── bug_report.md
         └── feature_request.md
