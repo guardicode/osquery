@@ -11,6 +11,38 @@
 <td> Description </td> <td> OSQuery </td>
 </tr>
 <tr>
+<td> CVE-2020-1472<br>
+<br> Zerologon patch check
+<br> https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2020-1472	
+</td>
+<td>
+
+```sql
+SELECT 
+    CASE 
+     WHEN NOT EXISTS
+     (SELECT 1
+    FROM patches
+    WHERE hotfix_id 
+       IN ("KB4571729", 
+           "KB4571736", 
+           "KB4571702", 
+           "KB4571703", 
+           "KB4571723",
+           "KB4571694", 
+           "KB4565349", 
+           "KB4565351", 
+           "KB4566782", 
+           "KB4577071", 
+           "KB4577066"))
+     THEN 'PATCH_MISSING'
+     ELSE 'SYSTEM_IS_PATCHED'
+      END AS CVE_2020_1472_vulnerable;
+```
+
+</td>
+</tr>
+<tr>
 <td> List of installed Security Updates</td>
 <td>
 
