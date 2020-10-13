@@ -136,16 +136,18 @@ SELECT DISTINCT(processes.name), process_open_sockets.local_port
 </td>
 </tr>
 <tr>
-<td> Open sockets</td>
+<td> Open sockets with process name</td>
 <td>
 
 ```sql
-SELECT remote_address,remote_port,local_address,local_port,family,protocol,state
-  FROM process_open_sockets
- WHERE remote_address NOT LIKE '127.0.0.1'
-   AND remote_address NOT LIKE '0.0.0.0'
-   AND remote_address NOT LIKE '::'
-   AND remote_address NOT LIKE '0';
+SELECT p.name,s.remote_address,s.remote_port,s.local_address,s.local_port,s.family,s.protocol
+  FROM process_open_sockets as s
+  JOIN processes as p
+    ON s.pid=p.pid
+ WHERE s.remote_address NOT LIKE '127.0.0.1'
+   AND s.remote_address NOT LIKE '0.0.0.0'
+   AND s.remote_address NOT LIKE '::'
+   AND s.remote_address NOT LIKE '0';
 ```
 
 </td>
