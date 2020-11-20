@@ -269,5 +269,21 @@ SELECT p.pid, p.name, u.username
 
 </td>
 </tr>
+<tr>
+<td> Check SMBv1 still supported on system (Windows)</td>
+<td>
+
+```sql
+SELECT 
+  CASE cnt
+  WHEN 1 THEN "DISABLED"
+  ELSE "ENABLED"
+   END "SMBv1 Status"
+  FROM (SELECT *,COUNT(*) AS cnt
+  FROM registry
+ WHERE path = 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters\SMB1' AND data != 1);
+ ```
+</td>
+</tr>
 
 </table>
