@@ -286,6 +286,16 @@ SELECT
 </td>
 </tr>
 <tr>
+<td> Find Windows DNS Servers</td>
+<td>
+
+```sql
+SELECT * FROM windows_optional_features WHERE state == 1 AND name == "DNS-Server-Full-Role";
+ ```
+
+</td>
+</tr>
+<tr>
 <td> Find Windows DHCP Servers</td>
 <td>
 
