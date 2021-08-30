@@ -1,13 +1,8 @@
-<p align="left">
-  <a href="https://www.guardicore.com/">
-    <img src="https://www.guardicore.com/wp-content/uploads/2019/02/guardicore-press-releases-logo-banner2-845x200-1.jpg" alt="Guardicore logo" width="400" height="100">
-  </a>
-</p>
-<h3 align="left">Basic osquery Information</h3>
-<p align="left">
+<h3 align="center">Basic osquery Information</h3>
+<div align="center">
 <table>
 <tr>
-<td> Description </td> <td> OSQuery </td>
+<td> Description </td> <td> Query </td>
 </tr>
 <tr>
 <td> Osquery version</td>
@@ -40,3 +35,4 @@ SELECT version FROM osquery_info;
 </td>
 </tr>
 </table>
+</div>
